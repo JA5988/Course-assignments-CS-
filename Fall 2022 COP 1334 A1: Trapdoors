@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std; 
+
+
+int main()
+{
+	int HitPoints = 50;
+	int menuChoice;
+	int doorChoice;
+
+	const int trapDoor3 = 3;
+	const int trapDoor1 = 1;
+
+	char keybutton;
+
+
+	cout << "Welcome to the dungeon escape." << endl << endl;
+	cout << " 1) Play the game" << endl;
+	cout << " 2) Exit the game" << endl;
+	cin >> menuChoice;
+
+	switch (menuChoice) {
+	case 1:
+		cout << "Welcome player. You wake up in a dark hallway, and three doors appear to be your way out." << endl;
+		cout << "Which door will you choose? 1, 2, or 3." << endl;
+		break;
+	case 2:
+		cout << "I see how it is. Maybe later." << endl;
+		return 0;
+		break;
+	default: //In case player inputs a value that is not 1 or 2. 
+		cout << "You don't seem to know how to follow instructions. Come back later." << endl;
+		return 0;
+	}
+
+	cin >> doorChoice;
+	if (doorChoice == 1) {
+		HitPoints = 100; //HP increase by 50
+		cout << "You pass through the door and a sense of strength comes over you." << endl;
+		cout << "Your new HP is " << HitPoints << "." << endl << endl;
+	}
+	else if (doorChoice == 2) {
+		HitPoints = 100; //HP increase by 50
+		cout << "You pass through the door and a sense of strength comes over you." << endl;
+		cout << "Your new HP is " << HitPoints << "." << endl << endl;
+	}
+	else if (doorChoice == trapDoor3) {
+		cout << "You open the door and you see a mage. Upon making eye contact, he casts a spell, \
+causing you to remember the time you tripped in front of your crush." << endl;
+		cout << "You then die of embarrassment." << endl;
+		cout << "GAME OVER.";
+		return 0;
+	}
+	else {
+		cout << "Really? Fine. You choose door " << doorChoice << ". Oh... oh no. WhÆ[ HæV€ ¥@µ ¬ØÑE";
+		cout << "GAME OVER";
+		return 0;
+	}
+
+	cout << "You see another set of three doors." << endl;
+	cout << "Which door will you choose? 1, 2, or 3." << endl;
+	cin >> doorChoice;
+
+	if (doorChoice == trapDoor1) {
+		HitPoints = 50; //HP reduced by 50
+		cout << "You open the door and are attacked by a banshee. You escape but your HP is now " << HitPoints << "." << endl << endl;
+		
+	}
+	else if (doorChoice == 2) {
+		cout << "You open the door and... nothing happens. Lucky you!" << endl << endl;
+	}
+	else if (doorChoice == trapDoor3) {
+		HitPoints = 50; //HP reduced by 50
+		cout << "You open the door and are attacked by an ogre. You escape but your HP is now " << HitPoints << "." << endl << endl;
+		
+	}
+	else {
+		cout << "Seriously, this far in? You open door " << doorChoice << " and decide to stare into the abyss and the abyss stares back." << endl;
+		cout << "GAME OVER";
+		return 0;
+	}
+
+	cout << "You see no obstacles and your HP is now " << HitPoints << ". Press any non-space key when ready." << endl;
+	cin >> keybutton;
+
+	if (HitPoints > 50) {
+		cout << "You see a dragon appear before you. It breathes fire upon you but you managed to escape with small wounds. Congratulations, \
+you've escaped the dungeon." << endl;
+		return 0;
+	}
+	else if (HitPoints <= 50) {
+		cout << "You see a dragon appear before you. It breathes fire upon you and your weak body is engulfed immediately." << endl;
+		cout << "GAME OVER.";
+		return 0;
+	}
+
+}
+
