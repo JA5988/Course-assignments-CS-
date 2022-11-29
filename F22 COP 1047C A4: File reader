@@ -1,0 +1,70 @@
+def main():
+    gradebook = {}
+    actualFileName = fileInput()
+    getInfoFromFile(gradebook, actualFileName)
+    findAverage(gradebook)
+    printResults(gradebook)
+    actualFileName.close()
+
+
+def fileInput():
+    incorrectInput = 0
+    while True:
+        try:
+            fileName = input("Please enter the name of the existing file: ")
+            actualFileName = open(fileName, 'r')
+            return actualFileName
+        except:
+            print("An error has ocurred.")
+            incorrectInput += 1
+            if incorrectInput == 3:
+                print("You have entered an invalid file name too many times.")
+                exit()
+            else:
+                continue
+        else:
+            break
+
+        
+def getInfoFromFile(gradebook, actualFileName):
+    count = 5
+    lastName = ""
+    textLines = actualFileName.readlines()
+    for line in textLines:
+        try:
+            line = int(line)
+            gradebook[lastName].append(line)
+            count = count + 1 
+        except:
+            if count == 5:
+                lastName = line.strip()
+                count = 0
+                gradebook[lastName] = []
+            elif count < 5:
+                i = count
+                for x in range( 5 - i):
+                    gradebook[lastName].append(0)
+                lastName = line.strip()
+                gradebook[lastName] = []
+                count = 0
+        
+    if count < 5:
+        i = count
+        for x in range( 5 - i):
+            gradebook[lastName].append(0)
+
+    return gradebook
+
+
+def findAverage(gradebook):
+    for key in gradebook:
+        gradebook[key].append(sum(gradebook[key]) / 5)
+    return gradebook
+
+
+def printResults(gradebook):
+    for key in gradebook:
+        print(key, *gradebook[key])
+
+
+main()
