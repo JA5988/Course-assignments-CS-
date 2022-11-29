@@ -1,0 +1,13 @@
+length = float(input("Enter the length of the box in feet: "))
+width = float(input("Enter the width of the box in feet: "))
+height = float(input("Enter the height of the box in feet: "))
+
+volume = length * width * height
+cost = volume * 0.45
+customerPrice = volume * 0.90
+profit = customerPrice - cost
+
+print("Volume:", format(volume, ",.2f"), "ft**3")
+print("Cost: $", format(cost, ",.2f"))
+print("Customer Price: $", format(customerPrice, ",.2f"))
+print("Profit: $", format(profit, ",.2f"))
