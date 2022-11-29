@@ -1,0 +1,25 @@
+cmValue1 = float(input("Please enter the first measurement in centimeters: "))
+cmValue2 = float(input("Please enter the second measurement in centimeters: "))
+cmValue3 = float(input("Please enter the third measurement in centimeters: "))
+cmValue4 = float(input("Please enter the fourth measurement in centimeters: "))
+
+inch1 = cmValue1 * 0.393700787
+inch2 = cmValue2 * 0.393700787
+inch3 = cmValue3 * 0.393700787
+inch4 = cmValue4 * 0.393700787
+
+foot1 = inch1 / 12
+foot2 = inch2 / 12
+foot3 = inch3 / 12
+foot4 = inch4 / 12
+
+yard1 = foot1 / 3
+yard2 = foot2 / 3
+yard3 = foot3 / 3
+yard4 = foot4 / 3
+
+print(format("Input(cm)", "^8s"), format("Yards", "^8s"), format("Feet", "^8s"), format("Inches", "^8s"))
+print(format(cmValue1, ">8,.0f"), format(yard1, ">8,.2f"), format(foot1, ">8,.2f"), format(inch1, ">9,.2f"))
+print(format(cmValue2, ">8,.0f"), format(yard2, ">8,.2f"), format(foot2, ">8,.2f"), format(inch2, ">9,.2f"))
+print(format(cmValue3, ">8,.0f"), format(yard3, ">8,.2f"), format(foot3, ">8,.2f"), format(inch3, ">9,.2f"))
+print(format(cmValue4, ">8,.0f"), format(yard4, ">8,.2f"), format(foot4, ">8,.2f"), format(inch4, ">9,.2f"))
