@@ -1,0 +1,225 @@
+using namespace std;
+#include <iostream>
+#include <string>
+#include <time.h>
+#include <cstdlib>
+
+class Player
+{
+private:
+    int HP;
+public:
+    Player(int);
+    string PlayerName;
+    int WeaponModifier = 1;
+    int WeaponAttack();
+    void setHP(int);
+    int getHP();
+    int Heal();
+
+};
+
+Player::Player(int theHP)
+{
+    HP = theHP;
+}
+
+void Player::setHP(int theHP)
+{
+    HP = theHP;
+}
+
+int Player::getHP()
+{
+    return HP;
+}
+
+int Player::WeaponAttack()
+{
+    int upper = 30;
+    int lower = 10;
+    return (rand() % (upper - lower + 1) + lower);
+}
+
+int Player::Heal()
+{
+    HP = HP + 25;
+    if (HP >= 200)
+    {
+        cout << "You cannot heal above the maximum HP. Your health stays at 200." << endl;
+        HP = 200;
+        return HP;
+    }
+    else
+    {
+        return HP;
+    }
+}
+
+class Enemy
+{
+private:
+    int HP;
+public:
+    Enemy(int);
+    int Attack();
+    void setHP(int);
+    int getHP();
+};
+
+Enemy::Enemy(int theEnemyHP)
+{
+    HP = theEnemyHP;
+}
+
+void Enemy::setHP(int theEnemyHP)
+{
+    HP = theEnemyHP;
+}
+
+int Enemy::getHP()
+{
+    return HP;
+}
+
+int Enemy::Attack()
+{
+    int lower = 10;
+    int upper = 20;
+    int enemyAttackDamage = (rand() % (upper - lower + 1) + lower);
+    if (enemyAttackDamage == 13 || enemyAttackDamage == 17)
+    {
+        return 0;
+    }
+    else
+    {
+        return enemyAttackDamage;
+    }
+}
+
+string menuOption()
+{
+    int menuChoice;
+    string playerName;
+    cout << "Welcome to the game! Choose one of the following options:" << endl;
+    cout << " 1) Play the game." << endl;
+    cout << " 2) Exit the game." << endl;
+    cin >> menuChoice;
+
+    switch (menuChoice)
+    {
+    case 1:
+        cout << "Welcome player! What is your name?" << endl;
+        cin >> playerName;
+        //getline(cin, playerName);
+        return playerName;
+        break;
+    case 2:
+        cout << "Maybe we can play next time." << endl;
+        exit(0);
+        break;
+    default:
+        cout << "There were only two options. Come back when you can follow directions." << endl;
+        exit(0);
+        break;
+    }
+}
+
+int main()
+{
+    srand(time(NULL));
+    int playerChoice;
+
+    Player myPlayer(150);
+    Enemy theEnemy(300);
+
+    myPlayer.PlayerName = menuOption();
+
+    while (myPlayer.getHP() > 0 && theEnemy.getHP() > 0)
+    {
+        cout << "Please select either a Random Action or a Weapon Attack." << endl;
+        cout << " 1) Random Action." << endl;
+        cout << " 2) Weapon Attack." << endl;
+        cin >> playerChoice;
+
+        switch (playerChoice)
+        {
+        case 1:
+        {
+            int upper = 4;
+            int lower = 1;
+            int randomNumber = (rand() % (upper - lower + 1) + lower);
+            cout << "You chose Random Action. Your random number is: " << randomNumber << endl;
+
+            if (randomNumber == 1 || randomNumber == 4)
+            {
+                cout << "Nothing happens." << endl;
+                cout << "Your HP remains at: " << myPlayer.getHP() << endl;
+                cout << "The enemy's HP remains at: " << theEnemy.getHP() << endl;
+            }
+            else if (randomNumber == 2)
+            {
+                myPlayer.Heal();
+                cout << "You've used a potion. Your new HP is: " << myPlayer.getHP() << endl;
+                cout << "The enemy's HP remains at: " << theEnemy.getHP() << endl;
+            }
+            else if (randomNumber == 3)
+            {
+                myPlayer.WeaponModifier = myPlayer.WeaponModifier + 1;
+                cout << "Your weapon modifier has increased by 1." << endl;
+                cout << "Your HP remains at: " << myPlayer.getHP() << endl;
+                cout << "The enemy's HP remains at: " << theEnemy.getHP() << endl;
+            }
+            break;
+        }
+
+        case 2:
+        {
+            int attackDamage = myPlayer.WeaponAttack() * myPlayer.WeaponModifier;
+            cout << "You chose Weapon Attack. You attacked the enemy for " << attackDamage << endl;
+            theEnemy.setHP(theEnemy.getHP() - attackDamage);
+            if (theEnemy.getHP() <= 0)
+            {
+                break;
+            }
+            else
+            {
+                cout << "The enemy's HP is now: " << theEnemy.getHP() << endl;
+                break;
+            }
+        }
+
+        default:
+        {
+            cout << "You didn't choose one of the two options available. Come back when you can follow directions." << endl;
+            exit(0);
+        }
+        }
+
+        if (theEnemy.getHP() <= 0)
+        {
+            cout << "Congratulations! You have defeated the enemy!" << endl;
+        }
+        else if (myPlayer.getHP() <= 0)
+        {
+            cout << "You have no more HP left. Game over." << endl;
+        }
+        else
+        {
+            cout << "This ends your turn." << endl;
+            int enemyDamage = theEnemy.Attack();
+            cout << "The enemy attacks you for: " << enemyDamage << endl;
+            myPlayer.setHP(myPlayer.getHP() - enemyDamage);
+            if (myPlayer.getHP() <= 0)
+            {
+                cout << "You have no more HP left. Game over." << endl;
+            }
+            else {
+                cout << "Your new HP value is: " << myPlayer.getHP() << endl;
+            }
+        }
+
+    }
+}
+
+
