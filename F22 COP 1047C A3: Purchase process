@@ -1,0 +1,68 @@
+def main():
+    purchaseLoop()
+        
+def menu():
+    print("Thank you for choosing Cruz Space Capable Vehicles.")
+    print("Please Enter One of the Following:")
+    return int(input("1 - Purchase CSCV 1.5s\n2 - Exit\n"))   
+
+def advantageClubDiscount(price):
+    discountedPrice = (price * 0.20)
+    print("Your total amount owed is: $", format(discountedPrice, ',.2f'), ".", sep='')
+    print("Because of your Advantage Club membership, you've received a 20% discount on your purchase.")
+    print("As well as free lifetime maintenance for one of the CSCV 1.5s purchased!")
+
+def purchaseLoop():
+    incorrectInput = 0
+    menuChoice = menu()
+    while menuChoice == 1 and incorrectInput < 5:
+      while True:
+          try:
+            purchaseAmount = float(input("How many CSCV 1.5s would you like to purchase today?\n"))
+          except ValueError:
+            incorrectInput += 1
+            if incorrectInput > 4:
+              print("You have entered an incorrect value too many times.")
+              exit()
+            else:
+              print("You have inputted an incorrect value. Try again.")
+          else:
+            break
+            
+      while True:
+        advantageClub = input("Are you currently a member of our CSCV Advantage Club? Yes or No.\n")
+        if advantageClub != "Yes" and advantageClub != "No" and advantageClub != "yes" and advantageClub != "no":
+          incorrectInput += 1 
+          if incorrectInput > 4:
+              print("You have entered an incorrect value too many times.")
+              exit()
+          else:
+            print("You have inputted an incorrect value.")
+        else:
+          break
+
+      regularPrice = (purchaseAmount * 5.0 * 10**5)
+      biggerPurchasePrice = (purchaseAmount * 4.5 * 10**5)
+      if purchaseAmount >= 5:
+        if advantageClub == "y" or advantageClub == "Y" or advantageClub == "yes" or advantageClub == "Yes":
+          advantageClubDiscount(biggerPurchasePrice)
+        else:
+          print("Your total amount owed is: $", format(biggerPurchasePrice, ',.2f'), ".", sep='')
+        menuChoice = menu()
+      elif purchaseAmount < 5 and purchaseAmount > 0:
+        if advantageClub == "y" or advantageClub == "Y" or advantageClub == "yes" or advantageClub == "Yes":
+          advantageClubDiscount(regularPrice)
+        else:
+          print("Your total amount owed is: $", format(regularPrice, ',.2f'), ".", sep='')
+        menuChoice = menu()
+      else:
+        while purchaseAmount < 1:
+          print("Values below one(1) are not allowed.")
+          purchaseAmount = float(input("Please enter the correct number of CSCV 1.5s you'd like to purchase:\n"))
+          incorrectInput += 1
+          if incorrectInput > 4:
+            print("You have entered an incorrect value too many times.")
+            menuChoice == 2
+            break     
+        
+main()                    
