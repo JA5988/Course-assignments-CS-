@@ -1,0 +1,92 @@
+#include <iostream>
+using namespace std;
+#include <string>
+
+const int SIZE = 5;
+string gameTitles[SIZE];
+int graphicScore[SIZE];
+int replayValue[SIZE];
+
+void enterGameInfo()
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << "Enter game title: " << endl;
+		getline(cin, gameTitles[i]);
+	}
+}
+
+void enterGraphicInfo()
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << "Enter the graphic score for the game title " << gameTitles[i] << ":" << endl;
+		cin >> graphicScore[i];
+	}
+}
+
+void enterReplayInfo()
+{
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << "Enter the replay value for the game title " << gameTitles[i] << ":" << endl;
+		cin >> replayValue[i];
+	}
+}
+
+void getHighestGraphics()
+{
+	int largestValue = graphicScore[0];
+	string bestGame = gameTitles[0];
+	for (int i = 1; i < SIZE; i++)
+	{
+		if (graphicScore[i] >= largestValue)
+		{
+			largestValue = graphicScore[i];
+			bestGame = gameTitles[i];
+		}
+	}
+	cout << "The highest rated graphics game is " << bestGame << " with a score of " << largestValue << endl;
+}
+
+void getHighestReplay()
+{
+	int largestValue = replayValue[0];
+	string bestGame = gameTitles[0];
+	for (int i = 1; i < SIZE; i++)
+	{
+		if (replayValue[i] >= largestValue)
+		{
+			largestValue = replayValue[i];
+			bestGame = gameTitles[i];
+		}
+	}
+	cout << "The highest rated replay game is " << bestGame << " with a score of " << largestValue << endl;
+}
+
+void getHighestCombined()
+{
+	int NewScore[SIZE];
+	int highestScore = 0;
+	string bestGame = gameTitles[0];
+	for (int i = 0; i < SIZE; i++)
+	{
+		NewScore[i] = graphicScore[i] + replayValue[i];
+		if (NewScore[i] >= highestScore)
+		{
+			highestScore = NewScore[i];
+			bestGame = gameTitles[i];
+		}
+	}
+	cout << "The highest rated combined score game is " << bestGame << " with a score of " << highestScore << "." << endl;
+}
+
+int main()
+{
+	enterGameInfo();
+	enterGraphicInfo();
+	enterReplayInfo();
+	getHighestGraphics();
+	getHighestReplay();
+	getHighestCombined();
+}
