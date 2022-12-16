@@ -18,7 +18,7 @@ Final Grade: A
 - COP 1047C Introduction to Python Programming:
 "Students will learn the syntax and rules of the Python language, including how to code, compile, and execute programs. Student will learn program design, structured 
 modular programming arrays, report generation, and file processing" (copied from COP 1047C syllabus made by Rodolfo Cruz).
-Final Grade: N/A 
+Final Grade: A
 
 
 
